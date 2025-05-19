@@ -34,28 +34,36 @@ export function updateControls() {
   if (!vehicle) return;
 
   // 控制參數
-  const engineForce = 1000;
-  const brakeForce = 50; // 降低煞車力道
-  const maxSteer = 0.30; // radians
+  const engineForce = 10000;
+  const brakeForce = 500; // 降低煞車力道
+  const maxSteer = 0.25; // radians
   const maxSpeed = 100; // 自訂，例如 20 公尺/秒
 
   const velocity = vehicle.chassisBody.velocity;
   const speed = velocity.length();
 
-  if (speed > maxSpeed) {
+  const maxV = maxSpeed * vehicle.maxSpeedRate
+
+  console.log('MaxV', maxV)
+
+  if (speed > maxV) {
     // 限速：將速度方向保留，但長度縮成 maxSpeed
-    velocity.scale(maxSpeed / speed, velocity);
+    velocity.scale(maxV / speed, velocity);
   } else {
     // W/S 前進/後退
     if (moveForward) {
+      // vehicle.applyEngineForce(engineForce, 0);
+      // vehicle.applyEngineForce(engineForce, 1);
       vehicle.applyEngineForce(engineForce, 2);
       vehicle.applyEngineForce(engineForce, 3);
     } else if (moveBackward) {
       // vehicle.setBrake(brakeForce, 2);
       // vehicle.setBrake(brakeForce, 3);
-      vehicle.applyEngineForce(-engineForce, 2);
-      vehicle.applyEngineForce(-engineForce, 3);
+      vehicle.applyEngineForce(-engineForce, 0);
+      vehicle.applyEngineForce(-engineForce, 1);
     } else {
+      vehicle.applyEngineForce(0, 0);
+      vehicle.applyEngineForce(0, 1);
       vehicle.applyEngineForce(0, 2);
       vehicle.applyEngineForce(0, 3);
     }
@@ -65,9 +73,13 @@ export function updateControls() {
 
   // Space 煞車
   if (brake) {
+    vehicle.setBrake(brakeForce, 0);
+    vehicle.setBrake(brakeForce, 1);
     vehicle.setBrake(brakeForce, 2);
     vehicle.setBrake(brakeForce, 3);
   } else {
+    vehicle.setBrake(0, 0);
+    vehicle.setBrake(0, 1);
     vehicle.setBrake(0, 2);
     vehicle.setBrake(0, 3);
   }
