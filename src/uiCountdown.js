@@ -2,8 +2,8 @@ export class UICountdown {
   constructor(onFinish) {
     this.onFinish = onFinish;
     this.createCountdownOverlay();
-    this.beep = new Audio("/sounds/CountdownSound.mp3");
-    this.finalBeep = new Audio("/sounds/final_beep.mp3");
+    this.beep = new Audio("sounds/CountdownSound.mp3");
+    this.finalBeep = new Audio("sounds/final_beep.mp3");
     this.isBeepLoaded = false
 
     this.beep.addEventListener('loadedmetadata', () => {
