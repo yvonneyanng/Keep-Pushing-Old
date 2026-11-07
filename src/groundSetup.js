@@ -17,7 +17,7 @@ const relocateOffSet = size * 0.2
  
 export function createMovingGround(scene) {
   const textureLoader = new THREE.TextureLoader();
-  const grassTexture = textureLoader.load('/textures/grass01.png');
+  const grassTexture = textureLoader.load('textures/grass01.png');
   grassTexture.wrapS = THREE.RepeatWrapping;
   grassTexture.wrapT = THREE.RepeatWrapping;
   grassTexture.repeat.set(size / 10, size / 10);

@@ -130,7 +130,7 @@ planeGeometry.computeVertexNormals();
 
 // Create plane material with texture
 const textureLoader = new THREE.TextureLoader();
-const roadTexture = textureLoader.load("/textures/road.png");
+const roadTexture = textureLoader.load("textures/road.png");
 roadTexture.wrapS = THREE.RepeatWrapping;
 roadTexture.wrapT = THREE.RepeatWrapping;
 roadTexture.repeat.set(1, 50); // Adjust tiling to suit length of road
